@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_courts">Pistas</string>
+    <string name="title_shop">Tienda</string>
+    <string name="title_menu">Menu</string>
+    <string name="filter">Filtros</string>
+</resources>
