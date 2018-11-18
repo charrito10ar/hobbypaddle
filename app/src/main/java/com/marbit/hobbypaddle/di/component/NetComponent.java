@@ -2,6 +2,7 @@ package com.marbit.hobbypaddle.di.component;
 
 import com.marbit.hobbypaddle.di.application.ApplicationModule;
 import com.marbit.hobbypaddle.di.modules.NetModule;
+import com.marbit.hobbypaddle.domain.repositories.ClubRepository;
 
 import javax.inject.Singleton;
 
@@ -16,6 +17,8 @@ public interface NetComponent {
 
     @NetModule.RetrofitAuth
     Retrofit retrofitAuth();
+
+    ClubRepository provideClubRepository();
 /*
     UserRepository getUserRepository();
     UserEntityDataMapper getUserEntityDataMapper();

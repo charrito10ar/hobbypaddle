@@ -8,11 +8,11 @@ import com.marbit.hobbypaddle.R
 import com.marbit.hobbypaddle.domain.model.Court
 import kotlinx.android.synthetic.main.court_item.view.*
 
-class CourtAdapter(private val listener: (Court) -> Unit) : RecyclerView.Adapter<CourtAdapter.CourtViewHolder>(){
+class ClubsAdapter(private val listener: (Court) -> Unit) : RecyclerView.Adapter<ClubsAdapter.CourtViewHolder>(){
 
     private var courtList: MutableList<Court> = ArrayList()
 
-    override fun onBindViewHolder(holder: CourtViewHolder?, position: Int) = holder!!.bind(courtList[position], listener)
+    override fun onBindViewHolder(holder: CourtViewHolder, position: Int) = holder!!.bind(courtList[position], listener)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CourtViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.court_item, parent, false))
 

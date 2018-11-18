@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.marbit.hobbypaddle.presentation.ui.activities.LoginActivity">
 
     <RelativeLayout
@@ -12,9 +13,22 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:layout_centerInParent="true" />
+
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            android:onClick="clickTest"
+            android:textSize="11sp"
+            android:text="Si eliges continuar, aceptas los términos y la Política de Privacidad"/>
 
     </RelativeLayout>
 

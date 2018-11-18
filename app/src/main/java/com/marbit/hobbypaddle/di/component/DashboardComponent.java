@@ -1,4 +1,4 @@
 package com.marbit.hobbypaddle.di.component;
 
-public class DashboardComponent {
+public interface DashboardComponent {
 }

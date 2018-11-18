@@ -1,19 +1,22 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.marbit.hobbypaddle"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -21,68 +24,114 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
 }
 
 project.ext {
+    //supportLibraryVersion = "28.0.0" //https://mvnrepository.com/artifact/com.android.support/design?repo=google
     supportLibraryVersion = "27.1.1"
     daggerVersion = "2.11"
     ext.anko_version = '0.10.4'
 }
 
 dependencies {
-    def room_version = "1.1.0"
-
+    def room_version = "1.1.1"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support:support-vector-drawable:26.1.0'
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation 'com.google.firebase:firebase-core:11.6.2'
-    implementation 'com.google.firebase:firebase-database:11.6.2'
-    implementation 'com.google.firebase:firebase-auth:11.6.2'
-    implementation 'com.google.android.gms:play-services-auth:11.6.2'
+    implementation 'com.android.support:multidex:1.0.3' // To api under 21
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:support-vector-drawable:$supportLibraryVersion"
+    implementation "com.android.support:support-v4:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
 
+    /** BEGIN TEST **/
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "org.robolectric:robolectric:3.7"
+    testImplementation "org.mockito:mockito-core:2.13.0"
+    /** END TEST **/
 
-    // Dagger core
+    /** BEGIN FIREBASE **/
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-database:16.0.5'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    /** END FIREBASE **/
+
+    /** BEGIN CALENDAR API **/
+    implementation 'com.google.api-client:google-api-client:1.25.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
+
+
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev260-1.23.0' exclude module: 'httpclient'
+    implementation 'com.google.api-client:google-api-client-android:1.23.0' exclude module: 'httpclient'
+    implementation 'com.google.http-client:google-http-client-gson:1.23.0' exclude module: 'httpclient'
+    implementation 'com.google.android.gms:play-services-identity:7.3.0'
+    /** END CALENDAR API **/
+
+    /** BEGIN FIREBASE PERFORMANCE **/
+    implementation 'com.google.firebase:firebase-perf:16.2.0'
+
+    /** BEGIN KOTLIN **/
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    /** END KOTLIN **/
+
+    /** PICASSO **/
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    /** BEGIN RETROFIT **/
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    /** END RETROFIT **/
+
+    /** BEGIN DAGGER CORE **/
     kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
     implementation "com.google.dagger:dagger:$project.daggerVersion"
+    /** END DAGGER CORE **/
 
-    implementation 'com.android.support:multidex:1.0.3' // To api under 21
-
-    // Dagger Android
+    /** BEGIN DAGGER ANDROID **/
     annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$project.daggerVersion"
-
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation "io.reactivex.rxjava2:rxjava:2.1.9"
+    implementation 'io.reactivex:rxjava:1.3.0'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    /** END DAGGER ANDROID **/
 
-    // Room )
+    /** BEGIN ROOM **/
     implementation "android.arch.persistence.room:runtime:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
+    /** END ROOM **/
+
     // optional - RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:$room_version"
     implementation('com.appyvet:materialrangebar:1.4.1') {
         exclude module: 'support-compat'
     }
-    //for lifecycle and LiveData and ViewModel
+
+    /** BEGIN lifecycle and LiveData and ViewModel **/
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation 'android.arch.lifecycle:runtime:1.1.1'
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    /** END lifecycle and LiveData and ViewModel **/
 
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'io.reactivex:rxjava:1.3.0'
-    implementation 'io.reactivex:rxandroid:1.2.1'
-
+    /** CRASHLYTICS **/
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
 
 }
 

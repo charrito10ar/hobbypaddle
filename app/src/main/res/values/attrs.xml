@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="ItemMenuView">
+        <attr name="menuItemIcon" format="reference"/>
+        <attr name="menuItemName" format="string"/>
+        <attr name="showArrow" format="boolean"/>
+        <attr name="showBadge" format="boolean"/>
+    </declare-styleable>
+</resources>

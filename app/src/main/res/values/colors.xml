@@ -3,4 +3,36 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="elephant">#2A373E</color>
+    <color name="cyanish_gray">#808D92</color>
+    <color name="cool_grey">#AFB8BD</color>
+    <color name="light_cool_grey">#C7CED1</color>
+    <color name="smoke">#F4F4F4</color>
+    <color name="dark_smoke">#E6E6E6</color>
+
+    <color name="cerulean">#0094D4</color>
+    <color name="electric_blue_pressed">#007db3</color>
+    <color name="strong_lime_green">#92BF20</color>
+    <color name="flame">#E85810</color>
+    <color name="glitter">#E2EFF0</color>
+    <color name="ocher">#C69B0E</color>
+
+    <color name="errorRed">#EA3C30</color>
+    <color name="white">#FFFFFF</color>
+    <color name="secondaryTextColor">#706E6E</color>
+    <color name="buttonColor">@color/cerulean</color>
+    <color name="lightGrayColor">#F4F4F4</color>
+    <color name="primaryTextColor">#2A373F</color>
+    <color name="orange_medium">#FF7600</color>
+    <color name="rusty_orange">#e85810</color>
+    <color name="translucent_black_dark">#CC000000</color>
+    <color name="translucent_black">#88000000</color>
+    <color name="translucent_white">#66FFFFFF</color>
+    <color name="translucent">#00000000</color>
+    <color name="secondary_button_press">#11000000</color>
+
+    <color name="title_text">@color/primaryTextColor</color>
+
+    <color name="grey_cc">#CCCCCC</color>
 </resources>

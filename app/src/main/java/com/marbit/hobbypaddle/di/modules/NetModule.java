@@ -3,6 +3,9 @@ package com.marbit.hobbypaddle.di.modules;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.marbit.hobbypaddle.BaseApplication;
+import com.marbit.hobbypaddle.data.CloudDataStore;
+import com.marbit.hobbypaddle.data.repositories.ClubRepositoryImpl;
+import com.marbit.hobbypaddle.domain.repositories.ClubRepository;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -44,8 +47,6 @@ public class NetModule {
         builder.connectTimeout(30, TimeUnit.SECONDS);
 
 
-
-
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
 
@@ -80,13 +81,13 @@ public class NetModule {
                 .client(builder.build())
                 .build();
     }
-/*
+
     @Provides
     @Singleton
-    UserRepository provideUserRepository(CloudDataStore cloudDataStore, UserEntityDataMapper userEntityDataMapper) {
-        return new UserRepositoryImpl(cloudDataStore, userEntityDataMapper);
+    ClubRepository provideClubRepository(CloudDataStore cloudDataStore) {
+        return new ClubRepositoryImpl(cloudDataStore);
     }
-
+/*
     @Provides
     @Singleton
     IncentiveRepository provideItemsRepository(CloudDataStore cloudDataStore, ItemEntityDataMapper itemEntityDataMapper, IncentiveDetailMapper incentiveDetailMapper, CategoryEntityDataMapper categoryEntityDataMapper) {

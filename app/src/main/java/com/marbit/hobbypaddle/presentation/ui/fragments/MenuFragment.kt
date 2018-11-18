@@ -1,22 +1,20 @@
 package com.marbit.hobbypaddle.presentation.ui.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.marbit.hobbypaddle.R
+import com.marbit.hobbypaddle.di.component.DaggerMenuComponent
+import com.marbit.hobbypaddle.di.modules.MenuModule
+import com.marbit.hobbypaddle.presentation.presenters.MenuPresenter
+import com.marbit.hobbypaddle.presentation.ui.fragments.interfaces.MenuView
+import kotlinx.android.synthetic.main.fragment_menu_list.*
+import javax.inject.Inject
 
-import com.marbit.hobbypaddle.presentation.ui.fragments.dummy.DummyContent
+class MenuFragment : BaseFragment(), MenuView {
 
-
-class MenuFragment : Fragment() {
-
-    private var columnCount = 1
-
+    @Inject lateinit var presenter: MenuPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +23,21 @@ class MenuFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_menu_list, container, false)
-
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyMenuRecyclerViewAdapter(DummyContent.ITEMS)
-            }
-        }
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        DaggerMenuComponent.builder().menuModule(MenuModule(this)).build().inject(this)
+        initView()
+    }
+
+    private fun initView() {
+        option_menu_log_out.setOnClickListener { presenter.clickLogOut() }
+    }
+
+    override fun clickLogOut() {
+
+        showMessage("Log Out")
+    }
 }
