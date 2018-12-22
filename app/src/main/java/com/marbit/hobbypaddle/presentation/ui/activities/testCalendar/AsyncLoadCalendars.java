@@ -16,7 +16,6 @@ package com.marbit.hobbypaddle.presentation.ui.activities.testCalendar;
 
 import android.util.Log;
 
-import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.CalendarList;
 import com.marbit.hobbypaddle.presentation.ui.activities.CalendarTestActivity;
 
@@ -37,14 +36,19 @@ public class AsyncLoadCalendars extends CalendarAsyncTask {
   protected void doInBackground() throws IOException {
     CalendarList feed = client.calendarList().list().setFields(CalendarInfo.FEED_FIELDS).execute();
     model.reset(feed.getItems());
+    //375s3l4j6b7qnvhlhmt5d6kfog@group.calendar.google.com
+    com.google.api.services.calendar.model.Events calendar = client.events()
+            .list("netquest.com_ps7t0365jcsl0hlgnkq5kedbkg@group.calendar.google.com").execute();
+//1htm7ep9ubatg154sk8ir98fvk@group.calendar.google.com
+    Log.d("MARCELO", "Calendar Description: " + calendar.getSummary());
 
-    com.google.api.services.calendar.model.Events events = client.events()
-            .list("375s3l4j6b7qnvhlhmt5d6kfog@group.calendar.google.com").execute();
-
-    Log.d("MARCELO", events.getSummary());
-    for (com.google.api.services.calendar.model.Event event: events.getItems()) {
-      Log.d("MARCELO", event.getSummary());
-      Log.d("MARCELO", event.getId());
+    for (com.google.api.services.calendar.model.Event event: calendar.getItems()) {
+      Log.d("MARCELO", "------------------PISTAS DISPONIBLES-----------------------");
+      Log.d("MARCELO", "Event Id:      " + event.getId());
+      Log.d("MARCELO", "Event Summary: " + event.getSummary());
+      Log.d("MARCELO", "Hora Inicio:   " + event.getStart().getDateTime().toString());
+      Log.d("MARCELO", "Hora Fin:      " + event.getEnd().getDateTime().toString());
+      Log.d("MARCELO", "------------------------------------------------------------");
     }
   }
 
